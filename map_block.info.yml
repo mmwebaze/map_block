@@ -1,0 +1,7 @@
+name: Map block
+type: module
+description: Module for creating simple maps using GeoJSON data as a block
+core: 8.x
+package: maps
+dependencies:
+  - block

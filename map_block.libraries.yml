@@ -1,0 +1,24 @@
+leaflet:
+  remote: http://leafletjs.com/
+  version: 1.0.3
+  license:
+    name: Leaflet-License
+    url: https://github.com/Leaflet/Leaflet/blob/v1.0.3/LICENSE
+    gpl-compatible: true
+  js:
+    js/leaflet/leaflet.js: {}
+  css:
+    theme:
+      css/leaflet/leaflet.css: {}
+
+map_block:
+  css:
+    theme:
+      css/map_block.css: {}
+  js:
+    js/map_block.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - map_block/leaflet
