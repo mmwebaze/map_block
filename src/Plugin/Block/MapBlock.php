@@ -35,7 +35,8 @@ class MapBlock extends BlockBase implements BlockPluginInterface, ContainerFacto
         return array(
             '#type' => 'markup',
             '#theme' => 'map_block_maps',
-            '#map_data' => ['uuid' => $config['uuid'], 'map' => $this->cleanString($config['map_json'])],
+            '#map_data' => ['uuid' => $config['uuid'], 'map' => $this->cleanString($config['map_json']),
+                'geotype' => $config['geo_type']],
             '#attached' => array(
                 'library' => array('map_block/map_block'),
             )
@@ -62,6 +63,12 @@ class MapBlock extends BlockBase implements BlockPluginInterface, ContainerFacto
             '#default_value' => isset($config['map_json']) ? $config['map_json'] : '',
             '#required' => TRUE,
         );
+        $form['geo_type'] = array(
+            '#type' => 'radios',
+            '#title' => t('Geometry Types'),
+            '#default_value' => isset($config['geo_type'])? $config['geo_type'] : 'point',
+            '#options' => ['point' => 'point','polygon' => 'polygon'],
+        );
         return $form;
     }
     /**
@@ -70,6 +77,7 @@ class MapBlock extends BlockBase implements BlockPluginInterface, ContainerFacto
     public function blockSubmit($form, FormStateInterface $form_state) {
         $this->setConfigurationValue('uuid', $form_state->getValue('uuid'));
         $this->setConfigurationValue('map_json', $form_state->getValue('map_json'));
+        $this->setConfigurationValue('geo_type', $form_state->getValue('geo_type'));
     }
     public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition){
         return new static($configuration, $plugin_id, $plugin_definition,
