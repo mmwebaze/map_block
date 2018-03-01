@@ -5,6 +5,8 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\map_block\geometry\GeoJsonFeature;
+use Drupal\map_block\geometry\Geometry;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Component\Uuid\Php;
 
@@ -31,11 +33,31 @@ class MapBlock extends BlockBase implements BlockPluginInterface, ContainerFacto
     public function build(){
         $config = $this->getConfiguration();
         $coordinates = explode('|',$this->cleanString($config['map_json']));
+        $geoJsonCoordinates = array();
+        foreach ($coordinates as $coordinate){
+            $temp = explode(',',str_replace('"', '',$coordinate));
+            array_push($geoJsonCoordinates, $temp);
+        }
+
+        $mapData = null;
+        if ($config['geo_type'] == 'Point'){
+            foreach ($geoJsonCoordinates as $key => $geoJsonCoordinate){
+                $geometry = new Geometry($config['geo_type'], $geoJsonCoordinate);
+                $geoJsonFeature = new GeoJsonFeature();
+                $geoJsonFeature->setGeometry($geometry);
+                $mapData[$key] = $geoJsonFeature;
+            }
+        }else{
+            $geometry = new Geometry($config['geo_type'], $geoJsonCoordinates);
+            $geoJsonFeature = new GeoJsonFeature();
+            $geoJsonFeature->setGeometry($geometry);
+            $mapData = $geometry;
+        }
 
         return array(
             '#type' => 'markup',
             '#theme' => 'map_block_maps',
-            '#map_data' => ['uuid' => $config['uuid'], 'map' => $this->cleanString($config['map_json']),
+            '#map_data' => ['uuid' => $config['uuid'], 'map' => json_encode($mapData),
                 'geotype' => $config['geo_type']],
             '#attached' => array(
                 'library' => array('map_block/map_block'),
@@ -49,8 +71,6 @@ class MapBlock extends BlockBase implements BlockPluginInterface, ContainerFacto
         $form = parent::blockForm($form, $form_state);
         $config = $this->getConfiguration();
 
-        //To do..change and use DI
-        //$uuid_service = \Drupal::service('uuid');
         $uuid = $this->uuidGenerator->generate();
 
         $form['uuid'] = array(
@@ -66,8 +86,8 @@ class MapBlock extends BlockBase implements BlockPluginInterface, ContainerFacto
         $form['geo_type'] = array(
             '#type' => 'radios',
             '#title' => t('Geometry Types'),
-            '#default_value' => isset($config['geo_type'])? $config['geo_type'] : 'point',
-            '#options' => ['point' => 'point','polygon' => 'polygon'],
+            '#default_value' => isset($config['geo_type'])? $config['geo_type'] : 'Point',
+            '#options' => ['Point' => 'Point','LineString'=>'LineString','Polygon' => 'Polygon'],
         );
         return $form;
     }
