@@ -78,7 +78,7 @@ class MapBlock extends BlockBase implements BlockPluginInterface, ContainerFacto
             '#value' => isset($config['uuid'])? $config['uuid']: $uuid,
         );
         $form['map_json'] = array(
-            '#title' => t('Json Data to be mapped'),
+            '#title' => $this->t('Json Data to be mapped'),
             '#type' => 'textarea',
             '#default_value' => isset($config['map_json']) ? $config['map_json'] : '',
             '#required' => TRUE,
@@ -86,8 +86,13 @@ class MapBlock extends BlockBase implements BlockPluginInterface, ContainerFacto
         $form['geo_type'] = array(
             '#type' => 'radios',
             '#title' => t('Geometry Types'),
+            '#description' => $this->t('format is long, lat ex: -2.464459,36.83711|-5.464459,36.83711'),
             '#default_value' => isset($config['geo_type'])? $config['geo_type'] : 'Point',
-            '#options' => ['Point' => 'Point','LineString'=>'LineString','Polygon' => 'Polygon'],
+            '#options' => [
+              'Point' => $this->t('Point'),
+              'LineString'=> $this->t('LineString'),
+              'Polygon' => $this->t('Polygon')
+            ],
         );
         return $form;
     }

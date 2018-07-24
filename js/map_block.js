@@ -11,7 +11,7 @@
                  console.log(JSON.parse(map_info));
                  var geoType = $(this).attr('geotype');
 
-                 var map = L.map(id).setView([51.508, -0.11], 13);
+                 var map = L.map(id).setView([39.5, -0.5], 5);
 
                  if (geoType == 'Point'){
                      L.geoJSON(JSON.parse(map_info)).addTo(map);
