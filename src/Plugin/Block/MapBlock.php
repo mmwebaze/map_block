@@ -73,6 +73,13 @@ class MapBlock extends BlockBase implements BlockPluginInterface, ContainerFacto
 
         $uuid = $this->uuidGenerator->generate();
 
+        $zoomLevels = array();
+
+        for($zoom = 5; $zoom <= 30; $zoom++){
+          array_push($zoomLevels, $zoom);
+        }
+        // $zoomLevels = array(5, 6, 7, 8, 9, 10)
+
         $form['uuid'] = array(
             '#type' => 'hidden',
             '#value' => isset($config['uuid'])? $config['uuid']: $uuid,
@@ -94,6 +101,12 @@ class MapBlock extends BlockBase implements BlockPluginInterface, ContainerFacto
               'Polygon' => $this->t('Polygon')
             ],
         );
+        $form['zoom'] = array(
+          '#type' => 'select',
+          '#title' => $this->t('Zoom level'),
+          '#options' => $zoomLevels,
+          '#default_value' => isset($config['zoom']) ? $config['zoom']:'0',
+        );
         return $form;
     }
     /**
@@ -103,6 +116,7 @@ class MapBlock extends BlockBase implements BlockPluginInterface, ContainerFacto
         $this->setConfigurationValue('uuid', $form_state->getValue('uuid'));
         $this->setConfigurationValue('map_json', $form_state->getValue('map_json'));
         $this->setConfigurationValue('geo_type', $form_state->getValue('geo_type'));
+        $this->setConfigurationValue('zoom', $form_state->getValue('zoom'));
     }
     public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition){
         return new static($configuration, $plugin_id, $plugin_definition,

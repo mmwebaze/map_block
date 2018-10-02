@@ -1,0 +1,15 @@
+{
+  "name": "drupal/map_block",
+  "type": "drupal-module",
+  "description": "Display a map in a block.",
+  "homepage": "https://www.drupal.org/project/map_block",
+  "license": "GPL-2.0-or-later",
+  "require": {
+
+  },
+  "authors": [{
+    "name": "Michael Mwebaze",
+    "homepage": "https://www.drupal.org/user/3201071"
+  }],
+  "keywords": ["drupal", "map_block", "maps", "leaflet", "blocks"]
+}
