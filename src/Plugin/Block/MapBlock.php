@@ -58,7 +58,7 @@ class MapBlock extends BlockBase implements BlockPluginInterface, ContainerFacto
             '#type' => 'markup',
             '#theme' => 'map_block_maps',
             '#map_data' => ['uuid' => $config['uuid'], 'map' => json_encode($mapData),
-                'geotype' => $config['geo_type']],
+                'geotype' => $config['geo_type'], 'zoom' => $config['zoom']],
             '#attached' => array(
                 'library' => array('map_block/map_block'),
             )
@@ -76,9 +76,9 @@ class MapBlock extends BlockBase implements BlockPluginInterface, ContainerFacto
         $zoomLevels = array();
 
         for($zoom = 5; $zoom <= 30; $zoom++){
-          array_push($zoomLevels, $zoom);
+          //array_push($zoomLevels, $zoom => $zoom);
+          $zoomLevels[$zoom] = $zoom;
         }
-        // $zoomLevels = array(5, 6, 7, 8, 9, 10)
 
         $form['uuid'] = array(
             '#type' => 'hidden',
