@@ -2,7 +2,11 @@
 
 namespace Drupal\map_block\geometry;
 
-
+/**
+ * Class Geometry
+ *
+ * @package Drupal\map_block\geometry
+ */
 class Geometry implements  \JsonSerializable{
 
     private $type;

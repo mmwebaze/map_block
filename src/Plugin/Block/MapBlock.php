@@ -76,7 +76,6 @@ class MapBlock extends BlockBase implements BlockPluginInterface, ContainerFacto
         $zoomLevels = array();
 
         for($zoom = 5; $zoom <= 30; $zoom++){
-          //array_push($zoomLevels, $zoom => $zoom);
           $zoomLevels[$zoom] = $zoom;
         }
 
@@ -123,10 +122,15 @@ class MapBlock extends BlockBase implements BlockPluginInterface, ContainerFacto
             $container->get('uuid')
         );
     }
+
+  /**
+   * Removes any spaces from added coordinates
+   *
+   * @param $stringToClean
+   *
+   * @return string
+   */
     private function cleanString($stringToClean){
         return $strWithoutSpave = preg_replace('/\s+/','',$stringToClean);
-        //print_r($strWithoutSpave);die();
-        //return $string = str_replace('\"', '\'', $stringToClean); // Replaces all spaces with hyphens.
-        //return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
     }
 }

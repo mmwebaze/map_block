@@ -2,7 +2,11 @@
 
 namespace Drupal\map_block\geometry;
 
-
+/**
+ * Class GeoJsonFeature
+ *
+ * @package Drupal\map_block\geometry
+ */
 class GeoJsonFeature implements  \JsonSerializable {
 
     private $type = 'Feature';

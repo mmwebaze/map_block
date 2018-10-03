@@ -1,6 +1,11 @@
 <?php
 namespace Drupal\map_block\geometry;
 
+/**
+ * Class Property
+ *
+ * @package Drupal\map_block\geometry
+ */
 class Property implements  \JsonSerializable {
 
     private $name;

@@ -25,4 +25,5 @@ separator for multiple points.<br>
 2. include support for Highmaps** 
 3. get coordinates from a csv
 4. get coordinates from a node
-5. Unit tests
+5. Dynamically set map heigh and width
+6. Unit tests
