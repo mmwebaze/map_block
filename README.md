@@ -23,7 +23,6 @@ separator for multiple points.<br>
 ## Still to be done
 1. use composer to download leaflet js
 2. include support for Highmaps** 
-3. get coordinates from a csv
-4. get coordinates from a node
-5. Dynamically set map heigh and width
-6. Unit tests
+3. get coordinates from a csv and node
+4. Dynamically set map height and width
+5. Unit tests

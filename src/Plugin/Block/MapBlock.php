@@ -20,7 +20,9 @@ use Drupal\Component\Uuid\Php;
  * )
  */
 class MapBlock extends BlockBase implements BlockPluginInterface, ContainerFactoryPluginInterface {
-
+  /**
+   * @var \Drupal\Component\Uuid\Php
+   */
     protected $uuidGenerator;
 
     public function __construct(array $configuration, $plugin_id, $plugin_definition, Php $uuidGenerator){
